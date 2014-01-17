@@ -1,0 +1,49 @@
+<div class="header">
+  <h3 class="text-muted">angulatransmission</h3>
+  <button type="button" style="float: left;margin-right: 1%;margin-top: 0.2%;" class="btn btn-default btn-sm" ng-click="settingsToggle()">
+     <span class="glyphicon glyphicon-wrench"></span>
+   </button>
+    <div id="settings">
+    <span ng-if="setting">
+     <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-model="checkModel.left" btn-checkbox>Left</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox>Middle</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.right" btn-checkbox>Right</button>
+      </div>
+    </div>
+  </span>
+   <div id="ipchange">
+      <input type="text" ng-model="selectedIp" style="display: inline; width: 68%;" typeahead="ip for ip in ips | filter:$viewValue | limitTo:8" class="form-control">
+      <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
+  </div>
+</div>
+<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total Size</th>
+      <th>DL Speed</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="torrent in torrents">
+      <td>
+        {{torrent.name}}
+      </td>
+     <td>
+        {{byteCalc(torrent.totalSize)}}
+      </td>
+      <td>
+        {{byteCalc(torrent.rateDownload)}}/s
+     </td>
+      <td>
+        {{percentCalc(torrent.percentDone)}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" class="btn btn-warning" ng-click="refreshList()">Refresh</button>
+<!-- <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar> -->
