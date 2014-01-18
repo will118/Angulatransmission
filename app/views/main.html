@@ -12,10 +12,12 @@
       </div>
     </div>
   </span>
+    <span ng-if="setting">
    <div id="ipchange">
-      <input type="text" ng-model="selectedIp" style="display: inline; width: 68%;" typeahead="ip for ip in ips | filter:$viewValue | limitTo:8" class="form-control">
+      <input type="text" ng-model="selectedIp" style="display: inline; width: 67%;" typeahead="ip for ip in ips | filter:$viewValue | limitTo:8" class="form-control">
       <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
   </div>
+  </span>
 </div>
 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 <table class="table table-hover">
@@ -47,3 +49,6 @@
 </table>
 <button type="button" class="btn btn-warning" ng-click="refreshList()">Refresh</button>
 <!-- <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar> -->
+<br />
+<br />
+ <input type="file" id="fileInput">

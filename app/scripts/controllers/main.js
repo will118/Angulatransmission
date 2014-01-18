@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angulatransmissionApp')
-  .controller('MainCtrl', function ($scope, Session) {
+  .controller('MainCtrl', function ($scope, Session, $base64) {
 
   $scope.alerts = [];
   $scope.ipAddress = '192.168.1.80';
@@ -11,11 +11,7 @@ angular.module('angulatransmissionApp')
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 
-  var sessionGet = function() {
-    Session.get($scope.ipAddress).then(function(data) {
-      $scope.session = data;
-    });
-  };
+  $scope.sampleSettings = $scope.checkModel;
 
   $scope.addAlert = function(text) {
     $scope.alerts.push({msg: text});
@@ -29,8 +25,16 @@ angular.module('angulatransmissionApp')
 
   var listTorrents = function(id) {
     Session.listTorrents(id, $scope.ipAddress).then(function(data) {
-      $scope.torrents = data['arguments']['torrents'];
+      if (angular.isString(data)) {
+        $scope.session = data;
+      } else {
+        $scope.torrents = data['arguments']['torrents'];
+      }
     });
+  };
+
+  var addTorrent = function(id, file) {
+    Session.addTorrent(id, $scope.ipAddress, file);
   };
 
   $scope.refreshList = function () {
@@ -60,13 +64,26 @@ angular.module('angulatransmissionApp')
    };
 
   $scope.percentCalc = function (inputDouble) {
-    return inputDouble * 100 + '%';
+    var percent = inputDouble * 100;
+    return percent.toFixed(2) + '%';
   };
 
-  sessionGet();
-  $scope.$watch('session',
-   function () {
-     $scope.refreshList();
-   });
+  setInterval(function(){
+    $scope.$apply(function() {
+      $scope.refreshList();
+    });
+  }, 1337);
+
+  var fileInput = document.getElementById('fileInput');
+
+  fileInput.addEventListener('change', function(e) {
+   var file = fileInput.files[0];
+   var reader = new FileReader();
+
+    reader.onload = function(e) {
+      addTorrent($scope.session, reader.result);
+    };
+  reader.readAsBinaryString(file);
+  });
 });
 
