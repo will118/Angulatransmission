@@ -6,10 +6,12 @@
     <div id="settings">
     <span ng-if="setting">
      <div class="btn-group">
-        <button type="button" class="btn btn-primary" ng-model="checkModel.left" btn-checkbox>Left</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox>Middle</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.right" btn-checkbox>Right</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.downloadDir" btn-checkbox>Download Dir</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.rateUpload" btn-checkbox>Upload Speed</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.eta" btn-checkbox>ETA</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.totalSize" btn-checkbox>Total Size</button>
       </div>
+      <button type="button" class="btn btn-success" style="display: inline;" ng-click="settingsBuilder()">Update</button>
     </div>
   </span>
     <span ng-if="setting">
@@ -24,9 +26,12 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Total Size</th>
+      <th ng-if="checkModel.totalSize">Total Size</th>
       <th>DL Speed</th>
       <th>Progress</th>
+      <th ng-if="checkModel.rateUpload">Upload Rate</th>
+      <th ng-if="checkModel.eta">ETA</th>
+      <th ng-if="checkModel.downloadDir">Dir</th>
     </tr>
   </thead>
 
@@ -35,7 +40,7 @@
       <td>
         {{torrent.name}}
       </td>
-     <td>
+      <td ng-if="checkModel.totalSize">
         {{byteCalc(torrent.totalSize)}}
       </td>
       <td>
@@ -44,6 +49,16 @@
       <td>
         {{percentCalc(torrent.percentDone)}}
       </td>
+      <td ng-if="checkModel.rateUpload">
+        {{torrent.rateUpload}}
+      </td>
+      <td ng-if="checkModel.eta">
+        {{torrent.eta}}
+      </td>
+      <td ng-if="checkModel.downloadDir">
+        {{torrent.downloadDir}}
+      </td>
+
     </tr>
   </tbody>
 </table>

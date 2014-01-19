@@ -11,7 +11,29 @@ angular.module('angulatransmissionApp')
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 
-  $scope.sampleSettings = $scope.checkModel;
+  $scope.checkModel = {
+    downloadDir: true,
+    rateUpload: true,
+    eta: false,
+    totalSize: true
+  };
+
+  console.log($scope.checkModel.totalSize);
+  $scope.settingsBuilder = function() {
+
+    var p = $scope.checkModel;
+
+    var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
+
+    for (var key in p) {
+      if (p.hasOwnProperty(key)) {
+        if (p[key]) {
+        presets.push(key);
+        }
+      }
+    }
+      console.log(presets);
+  };
 
   $scope.addAlert = function(text) {
     $scope.alerts.push({msg: text});
@@ -56,12 +78,6 @@ angular.module('angulatransmissionApp')
       $scope.setting = true;
     };
   };
-
-   $scope.checkModel = {
-    left: false,
-    middle: true,
-    right: false
-   };
 
   $scope.percentCalc = function (inputDouble) {
     var percent = inputDouble * 100;
