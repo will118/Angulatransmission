@@ -10,9 +10,9 @@ var baseUrl = function (ip) {
 app.factory('Session', function($http, $q, $base64) {
   var ipAddress = '192.168.1.80';
   var methods = {};
-  methods.listTorrents = function(sessionId, ipAddress) {
+  methods.listTorrents = function(sessionId, ipAddress, settings) {
     var deferList = $q.defer();
-    var postData = {'arguments': { 'fields': [ 'id', 'name', 'totalSize', 'rateDownload', 'downloadDir', 'percentDone']}, 'method': 'torrent-get'};
+    var postData = {'arguments': { 'fields': settings}, 'method': 'torrent-get'};
     $http({
           url: baseUrl(ipAddress),
           method: "POST",

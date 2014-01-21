@@ -1,9 +1,6 @@
 'use strict';
 
 angular.module('angulatransmissionApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
   'angulatransmissionApp.sessions',
   'ngRoute',
   'ui.bootstrap',

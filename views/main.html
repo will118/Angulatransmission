@@ -7,9 +7,10 @@
     <span ng-if="setting">
      <div class="btn-group">
         <button type="button" class="btn btn-primary" ng-model="checkModel.downloadDir" btn-checkbox>Download Dir</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.rateUpload" btn-checkbox>Upload Speed</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.rateUpload" btn-checkbox>UL Speed</button>
         <button type="button" class="btn btn-primary" ng-model="checkModel.eta" btn-checkbox>ETA</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.totalSize" btn-checkbox>Total Size</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.totalSize" btn-checkbox>Size</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.uploadedEver" btn-checkbox>Uploaded</button>
       </div>
       <button type="button" class="btn btn-success" style="display: inline;" ng-click="settingsBuilder()">Update</button>
     </div>
@@ -31,7 +32,9 @@
       <th>Progress</th>
       <th ng-if="checkModel.rateUpload">Upload Rate</th>
       <th ng-if="checkModel.eta">ETA</th>
+      <th ng-if="checkModel.uploadedEver">Uploaded</th>
       <th ng-if="checkModel.downloadDir">Dir</th>
+      <th ng-if="checkModel.status">Status</th>
     </tr>
   </thead>
 
@@ -50,7 +53,10 @@
         {{percentCalc(torrent.percentDone)}}
       </td>
       <td ng-if="checkModel.rateUpload">
-        {{torrent.rateUpload}}
+        {{byteCalc(torrent.rateUpload)}}
+      </td>
+       <td ng-if="checkModel.uploadedEver">
+        {{byteCalc(torrent.uploadedEver)}}
       </td>
       <td ng-if="checkModel.eta">
         {{torrent.eta}}
@@ -58,12 +64,14 @@
       <td ng-if="checkModel.downloadDir">
         {{torrent.downloadDir}}
       </td>
+      <td ng-if="checkModel.status">
+        {{statusFilter(torrent.status)}}
+      </td>
 
     </tr>
   </tbody>
 </table>
 <button type="button" class="btn btn-warning" ng-click="refreshList()">Refresh</button>
-<!-- <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar> -->
 <br />
 <br />
  <input type="file" id="fileInput">

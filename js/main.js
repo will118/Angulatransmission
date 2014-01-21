@@ -15,10 +15,11 @@ angular.module('angulatransmissionApp')
     downloadDir: true,
     rateUpload: true,
     eta: false,
-    totalSize: true
+    totalSize: true,
+    status: true,
+    uploadedEver: true
   };
 
-  console.log($scope.checkModel.totalSize);
   $scope.settingsBuilder = function() {
 
     var p = $scope.checkModel;
@@ -32,8 +33,10 @@ angular.module('angulatransmissionApp')
         }
       }
     }
-      console.log(presets);
+      $scope.listSettings = presets;
   };
+
+  $scope.settingsBuilder();
 
   $scope.addAlert = function(text) {
     $scope.alerts.push({msg: text});
@@ -45,8 +48,23 @@ angular.module('angulatransmissionApp')
     $scope.ipAddress = $scope.selectedIp;
   };
 
+  $scope.statusFilter = function (num) {
+    if (num == 6){
+       return "Seeding"
+    } else if (num == 4){
+       return "Downloading";
+    } else if (num == 3){
+       return "Queued";
+    } else if (num == 0){
+       return "Paused";
+    } else {
+       return "Unknown";
+    }
+  }
+
+
   var listTorrents = function(id) {
-    Session.listTorrents(id, $scope.ipAddress).then(function(data) {
+    Session.listTorrents(id, $scope.ipAddress, $scope.listSettings).then(function(data) {
       if (angular.isString(data)) {
         $scope.session = data;
       } else {

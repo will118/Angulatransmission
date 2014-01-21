@@ -1,0 +1,13 @@
+{
+  "name": "angulatransmission",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_title": "Transmission",
+    "default_popup": "main.html"
+  },
+
+  "permissions": [
+    "<all_urls>"
+  ]
+}
