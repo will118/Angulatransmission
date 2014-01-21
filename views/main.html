@@ -1,27 +1,3 @@
-<div class="header">
-  <h3 class="text-muted">angulatransmission</h3>
-  <button type="button" style="float: left;margin-right: 1%;margin-top: 0.2%;" class="btn btn-default btn-sm" ng-click="settingsToggle()">
-     <span class="glyphicon glyphicon-wrench"></span>
-   </button>
-    <div id="settings">
-    <span ng-if="setting">
-     <div class="btn-group">
-        <button type="button" class="btn btn-primary" ng-model="checkModel.downloadDir" btn-checkbox>Download Dir</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.rateUpload" btn-checkbox>UL Speed</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.eta" btn-checkbox>ETA</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.totalSize" btn-checkbox>Size</button>
-        <button type="button" class="btn btn-primary" ng-model="checkModel.uploadedEver" btn-checkbox>Uploaded</button>
-      </div>
-      <button type="button" class="btn btn-success" style="display: inline;" ng-click="settingsBuilder()">Update</button>
-    </div>
-  </span>
-    <span ng-if="setting">
-   <div id="ipchange">
-      <input type="text" ng-model="selectedIp" style="display: inline; width: 67%;" typeahead="ip for ip in ips | filter:$viewValue | limitTo:8" class="form-control">
-      <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
-  </div>
-  </span>
-</div>
 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 <table class="table table-hover">
   <thead>
@@ -71,7 +47,28 @@
     </tr>
   </tbody>
 </table>
-<button type="button" class="btn btn-warning" ng-click="refreshList()">Refresh</button>
+<button type="button" class="btn btn-warning" ng-click="refreshList()">Refresh</button> 
+<button type="button" style="float: left;margin-right: 1%;margin-top: 0.2%;" class="btn btn-default btn-sm" ng-click="settingsToggle()">
+     <span class="glyphicon glyphicon-wrench"></span>
+   </button>
+    <div id="settings">
+    <span ng-if="setting">
+     <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-model="checkModel.downloadDir" btn-checkbox>Download Dir</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.rateUpload" btn-checkbox>UL Speed</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.eta" btn-checkbox>ETA</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.totalSize" btn-checkbox>Size</button>
+        <button type="button" class="btn btn-primary" ng-model="checkModel.uploadedEver" btn-checkbox>Uploaded</button>
+      </div>
+      <button type="button" class="btn btn-success" style="display: inline;" ng-click="settingsBuilder()">Update</button>
+    </div>
+  </span>
+    <span ng-if="setting">
+   <div id="ipchange">
+      <input type="text" ng-model="selectedIp" style="display: inline; width: 67%;" typeahead="ip for ip in ips | filter:$viewValue | limitTo:8" class="form-control">
+      <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
+  </div>
+  </span>
 <br />
 <br />
  <input type="file" id="fileInput">
