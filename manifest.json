@@ -11,8 +11,6 @@
 
   "permissions": [
     "<all_urls>",
-    "contextMenus",
-    "downloads",
-    "downloads.open"
+    "contextMenus"
   ]
 }
