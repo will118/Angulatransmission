@@ -1,6 +1,5 @@
 'use strict';
 
-
 var app = angular.module('angulatransmissionApp.sessions', []);
 
 var baseUrl = function (ip) {
@@ -10,6 +9,7 @@ var baseUrl = function (ip) {
 app.factory('Session', function($http, $q, $base64) {
   var ipAddress = '192.168.1.80';
   var methods = {};
+
   methods.listTorrents = function(sessionId, ipAddress, settings) {
     var deferList = $q.defer();
     var postData = {'arguments': { 'fields': settings}, 'method': 'torrent-get'};
@@ -40,6 +40,9 @@ app.factory('Session', function($http, $q, $base64) {
     })
     .success(function(data) {
       deferAdd.resolve(data);
+    })
+    .error(function(_data_, _status_, headers, _config_) {
+      deferAdd.resolve(headers()['x-transmission-session-id']);
     });
     return deferAdd.promise;
   };

@@ -23,7 +23,6 @@ angular.module('angulatransmissionApp')
   $scope.settingsBuilder = function() {
 
     var p = $scope.checkModel;
-
     var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
 
     for (var key in p) {
