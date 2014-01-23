@@ -28,6 +28,24 @@ app.factory('Session', function($http, $q, $base64) {
     return deferList.promise;
   };
 
+  methods.torrentStats = function(sessionId, ipAddress) {
+    var deferStats = $q.defer();
+    var postData = {'arguments': {'fields': 'cumulative-stats'}, 'method': 'session-stats'};
+    $http({
+          url: baseUrl(ipAddress),
+          method: "POST",
+          data: postData,
+          headers: {'X-Transmission-Session-Id': sessionId}
+    })
+    .success(function(data, status, headers, config) {
+      deferStats.resolve(data);
+    }).
+      error(function(_data_, _status_, headers, _config_) {
+      deferStats.resolve(headers()['x-transmission-session-id']);
+    });
+    return deferStats.promise;
+  };
+
   methods.addTorrent = function(sessionId, ipAddress, inputFile) {
     var deferAdd = $q.defer();
     var metainfo = $base64.encode(inputFile);
