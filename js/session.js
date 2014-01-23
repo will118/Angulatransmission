@@ -47,6 +47,24 @@ app.factory('Session', function($http, $q, $base64) {
     return deferAdd.promise;
   };
 
+  methods.removeTorrent = function(sessionId, ipAddress, id) {
+    var deferRemove = $q.defer();
+    var postData = {'arguments': { 'ids' : id, 'delete-local-data' : true }, 'method': 'torrent-remove'};
+    $http({
+          url: baseUrl(ipAddress),
+          method: "POST",
+          data: postData,
+          headers: {'X-Transmission-Session-Id': sessionId}
+    })
+    .success(function(data) {
+      deferRemove.resolve(data);
+    })
+    .error(function(_data_, _status_, headers, _config_) {
+      deferRemove.resolve(headers()['x-transmission-session-id']);
+    });
+    return deferRemove.promise;
+  };
+
   return methods;
 });
 

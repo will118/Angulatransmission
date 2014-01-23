@@ -1,15 +1,16 @@
 'use strict';
 
-angular.module('angulatransmissionApp')
-  .controller('MainCtrl', function ($scope, Session, $base64) {
+var myApp = angular.module('angulatransmissionApp')
+  .controller('MainCtrl', function ($scope, Session, $location, $base64) {
 
   $scope.alerts = [];
   $scope.ipAddress = '192.168.1.80';
-  $scope.dynamic = 40;
-  $scope.max = 100;
-  $scope.setting = false;
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
+
+  $scope.go = function (path) {
+     $location.path(path);
+  };
 
   $scope.checkModel = {
     downloadDir: true,
@@ -17,6 +18,7 @@ angular.module('angulatransmissionApp')
     eta: false,
     totalSize: true,
     status: true,
+    remove: true,
     uploadedEver: true
   };
 
@@ -31,8 +33,8 @@ angular.module('angulatransmissionApp')
         presets.push(key);
         }
       }
-    }
-      $scope.listSettings = presets;
+    };
+    $scope.listSettings = presets;
   };
 
   $scope.settingsBuilder();
@@ -58,12 +60,15 @@ angular.module('angulatransmissionApp')
        return "Paused";
     } else {
        return "Unknown";
-    }
-  }
+    };
+  };
 
+  $scope.removeTorrent = function(id) {
+    Session.removeTorrent($scope.session, $scope.ipAddress, id);
+  };
 
-  var listTorrents = function(id) {
-    Session.listTorrents(id, $scope.ipAddress, $scope.listSettings).then(function(data) {
+  var listTorrents = function() {
+    Session.listTorrents($scope.session, $scope.ipAddress, $scope.listSettings).then(function(data) {
       if (angular.isString(data)) {
         $scope.session = data;
       } else {
@@ -77,7 +82,7 @@ angular.module('angulatransmissionApp')
   };
 
   $scope.refreshList = function () {
-    listTorrents($scope.session);
+    listTorrents();
   };
 
   $scope.byteCalc = function (bytes) {
@@ -105,18 +110,6 @@ angular.module('angulatransmissionApp')
     $scope.$apply(function() {
       $scope.refreshList();
     });
-  }, 1337);
-
-  var fileInput = document.getElementById('fileInput');
-
-  fileInput.addEventListener('change', function(e) {
-   var file = fileInput.files[0];
-   var reader = new FileReader();
-
-    reader.onload = function(e) {
-      addTorrent($scope.session, reader.result);
-    };
-  reader.readAsBinaryString(file);
-  });
+  }, 3337);
 });
 
