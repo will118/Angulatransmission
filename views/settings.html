@@ -14,4 +14,11 @@
       <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
   </div>
   <br />
-    <pre>{{stats}}</pre>
+  <div class="row" style="background: rgba(24, 117, 31, 0.34);">
+    <div class="col-xs-6 col-sm-4">Uptime: {{hoursCalc(stats.secondsActive)}}</div>
+    <div class="col-xs-6 col-sm-4">Downloaded: {{byteCalc(stats.downloadedBytes)}}</div>
+    <div class="clearfix visible-xs"></div>
+    <div class="col-xs-6 col-sm-4">Uploaded: {{byteCalc(uploadedBytes)}}</div>
+</div>
+
+<pre>{{stats}}</pre>

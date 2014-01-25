@@ -1,10 +1,33 @@
 'use strict';
+var settingsBuilder = function(p) {
+    var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
+    for (var key in p) {
+      if (p.hasOwnProperty(key)) {
+        if (p[key]) {
+        presets.push(key);
+        }
+      }
+    }
+    return presets;
+  };
+var byteCalc = function (bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    if (i == 0) return bytes + ' ' + sizes[i];
+    return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+};
+
+var hoursCalc = function (seconds) {
+    return (Math.round(seconds/3600) + ' hours');
+};
 
 var myApp = angular.module('angulatransmissionApp')
   .controller('MainCtrl', function ($scope, Session, $location, $base64) {
 
   $scope.alerts = [];
-  $scope.ipAddress = '192.168.1.80';
+  // $scope.ipAddress = '192.168.1.80';
+  $scope.ipAddress = '127.0.0.1';
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 
@@ -23,18 +46,7 @@ var myApp = angular.module('angulatransmissionApp')
   };
 
   $scope.settingsBuilder = function() {
-
-    var p = $scope.checkModel;
-    var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
-
-    for (var key in p) {
-      if (p.hasOwnProperty(key)) {
-        if (p[key]) {
-        presets.push(key);
-        }
-      }
-    };
-    $scope.listSettings = presets;
+     $scope.listSettings = settingsBuilder($scope.checkModel);
   };
 
   $scope.settingsBuilder();
@@ -51,12 +63,12 @@ var myApp = angular.module('angulatransmissionApp')
 
   $scope.statusFilter = function (num) {
     if (num == 6){
-       return "Seeding"
+       return "Seeding";
     } else if (num == 4){
        return "Downloading";
     } else if (num == 3){
        return "Queued";
-    } else if (num == 0){
+    } else if (num === 0){
        return "Paused";
     } else {
        return "Unknown";
@@ -86,11 +98,7 @@ var myApp = angular.module('angulatransmissionApp')
   };
 
   $scope.byteCalc = function (bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    if (i == 0) return bytes + ' ' + sizes[i];
-    return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+    return byteCalc(bytes);
   };
 
   $scope.settingsToggle = function () {
