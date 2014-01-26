@@ -1,4 +1,6 @@
 'use strict';
+var devip = '192.168.1.80';
+
 var settingsBuilder = function(p) {
     var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
     for (var key in p) {
@@ -22,12 +24,21 @@ var hoursCalc = function (seconds) {
     return (Math.round(seconds/3600) + ' hours');
 };
 
+var abler = function (bool) {
+  if (bool == false) {
+    return 'Disabled'
+  } else if (bool == true) {
+    return 'Enabled'
+  } else {
+    return undefined
+  }
+};
+
 var myApp = angular.module('angulatransmissionApp')
   .controller('MainCtrl', function ($scope, Session, $location, $base64) {
 
   $scope.alerts = [];
-  // $scope.ipAddress = '192.168.1.80';
-  $scope.ipAddress = '127.0.0.1';
+  $scope.ipAddress = devip;
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 

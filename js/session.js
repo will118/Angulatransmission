@@ -10,6 +10,24 @@ app.factory('Session', function($http, $q, $base64) {
   var ipAddress = '192.168.1.80';
   var methods = {};
 
+  methods.listSettings = function(sessionId, ipAddress) {
+    var deferSettingList = $q.defer();
+    var postData = {'method': 'session-get'};
+    $http({
+          url: baseUrl(ipAddress),
+          method: "POST",
+          data: postData,
+          headers: {'X-Transmission-Session-Id': sessionId}
+    })
+    .success(function(data, status, headers, config) {
+      deferSettingList.resolve(data);
+    }).
+      error(function(_data_, _status_, headers, _config_) {
+      deferSettingList.resolve(headers()['x-transmission-session-id']);
+    });
+    return deferSettingList.promise;
+  };
+
   methods.listTorrents = function(sessionId, ipAddress, settings) {
     var deferList = $q.defer();
     var postData = {'arguments': { 'fields': settings}, 'method': 'torrent-get'};

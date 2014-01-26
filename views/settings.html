@@ -14,11 +14,73 @@
       <button type="button" class="btn btn-success" style="display: inline;" ng-click="changeIp()">Connect</button>
   </div>
   <br />
-  <div class="row" style="background: rgba(24, 117, 31, 0.34);">
-    <div class="col-xs-6 col-sm-4">Uptime: {{hoursCalc(stats.secondsActive)}}</div>
-    <div class="col-xs-6 col-sm-4">Downloaded: {{byteCalc(stats.downloadedBytes)}}</div>
-    <div class="clearfix visible-xs"></div>
-    <div class="col-xs-6 col-sm-4">Uploaded: {{byteCalc(uploadedBytes)}}</div>
-</div>
+   <table class="table" style="background: rgba(24, 117, 31, 0.34);">
+    <tr>
+      <th>
+        Uptime
+      </th>
+       <th>
+        Downloaded
+      </th>
+     <th>
+      Uploaded
+      </th>
+    </tr>
+    <tr>
+      <td>
+        {{hoursCalc(stats.secondsActive)}}
+      </td>
+      <td>
+        {{byteCalc(stats.downloadedBytes)}}
+      </td>
+      <td>
+        {{byteCalc(stats.uploadedBytes)}}
+      </td>
+    </tr>
+  </table>
+
+ <table class="table" style="background: rgba(24, 117, 31, 0.34);">
+    <tr>
+      <th>
+        DHT
+      </th>
+      <th>
+        PEX
+      </th>
+     <th>
+      Autostart
+      </th>
+     <th>
+      Download Limit
+      </th>
+      <th>
+      Upload Limit
+      </th>
+      <th>
+      Free Space
+      </th>
+    </tr>
+    <tr>
+       <td>
+         {{abler(settingList['dht-enabled'])}}
+      </td>
+      <td>
+         {{abler(settingList['pex-enabled'])}}
+      </td>
+      <td>
+         {{abler(settingList['start-added-torrents'])}}
+      </td>
+      <td>
+      {{settingList['speed-limit-down']}}KB/s {{abler(settingList['speed-limit-down-enabled'])}}
+      </td>
+      <td>
+      {{settingList['speed-limit-up']}}KB/s {{abler(settingList['speed-limit-up-enabled'])}}
+      </td>
+      <td>
+        {{byteCalc(settingList['download-dir-free-space'])}}
+      </td>
+    </tr>
+  </table>
 
 <pre>{{stats}}</pre>
+<pre>{{settingList}}</pre>
