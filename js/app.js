@@ -5,6 +5,7 @@ angular.module('angulatransmissionApp', [
   'ngRoute',
   'ui.bootstrap',
   'base64',
+  'ngStorage',
   'ngSanitize'
 ])
   .config(function ($routeProvider) {

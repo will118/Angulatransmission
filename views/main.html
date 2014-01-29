@@ -3,14 +3,14 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th ng-if="checkModel.totalSize">Size</th>
+      <th ng-if="$storage.totalSize">Size</th>
       <th style="text-align: center;"> DL</th>
-      <th ng-if="checkModel.rateUpload" style="text-align: center;">UL</th>
+      <th ng-if="$storage.rateUpload" style="text-align: center;">UL</th>
       <th>Progress</th>
-      <th ng-if="checkModel.eta">ETA</th>
-      <th ng-if="checkModel.uploadedEver">Uploaded</th>
-      <th ng-if="checkModel.downloadDir">Dir</th>
-      <th ng-if="checkModel.status"></th>
+      <th ng-if="$storage.eta">ETA</th>
+      <th ng-if="$storage.uploadedEver">Uploaded</th>
+      <th ng-if="$storage.downloadDir">Dir</th>
+      <th ng-if="$storage.status"></th>
       <th></th>
     </tr>
   </thead>
@@ -20,28 +20,28 @@
       <td>
         {{torrent.name}}
              </td>
-             <td ng-if="checkModel.totalSize">
+             <td ng-if="$storage.totalSize">
         {{byteCalc(torrent.totalSize)}}
       </td>
       <td style="text-align: center;">
         {{byteCalc(torrent.rateDownload)}}/s
         </td>
-        <td ng-if="checkModel.rateUpload" style="text-align: center;">
+        <td ng-if="$storage.rateUpload" style="text-align: center;">
         {{byteCalc(torrent.rateUpload)}}
       </td>
       <td>
         {{percentCalc(torrent.percentDone)}}
       </td>
-       <td ng-if="checkModel.uploadedEver">
+       <td ng-if="$storage.uploadedEver">
         {{byteCalc(torrent.uploadedEver)}}
       </td>
-      <td ng-if="checkModel.eta">
+      <td ng-if="$storage.eta">
         {{torrent.eta}}
       </td>
-      <td ng-if="checkModel.downloadDir">
+      <td ng-if="$storage.downloadDir">
         {{torrent.downloadDir}}
       </td>
-      <td ng-if="checkModel.status">
+      <td ng-if="$storage.status">
         <div ng-bind-html="statusFilter(torrent.status)"></div>
       </td>
         <td>

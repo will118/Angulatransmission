@@ -1,41 +1,17 @@
 'use strict';
-var devip = '192.168.1.80';
-
-var settingsBuilder = function(p) {
-    var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
-    for (var key in p) {
-      if (p.hasOwnProperty(key)) {
-        if (p[key]) {
-        presets.push(key);
-        }
-      }
-    }
-    return presets;
-  };
-var byteCalc = function (bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    if (i == 0) return bytes + ' ' + sizes[i];
-    return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
-};
-
-var hoursCalc = function (seconds) {
-    return (Math.round(seconds/3600) + ' hours');
-};
-
-var abler = function (bool) {
-  if (bool == false) {
-    return 'Disabled'
-  } else if (bool == true) {
-    return 'Enabled'
-  } else {
-    return undefined
-  }
-};
 
 var myApp = angular.module('angulatransmissionApp')
-  .controller('MainCtrl', function ($scope, Session, $location, $base64) {
+  .controller('MainCtrl', function ($scope, Session, $location, $base64, $localStorage) {
+
+  $scope.$storage = $localStorage.$default({
+        downloadDir: true,
+        rateUpload: true,
+        eta: false,
+        totalSize: true,
+        status: true,
+        remove: true,
+        uploadedEver: true
+  });
 
   $scope.alerts = [];
   $scope.ipAddress = devip;
@@ -46,21 +22,9 @@ var myApp = angular.module('angulatransmissionApp')
      $location.path(path);
   };
 
-  $scope.checkModel = {
-    downloadDir: true,
-    rateUpload: true,
-    eta: false,
-    totalSize: true,
-    status: true,
-    remove: true,
-    uploadedEver: true
+  $scope.listSettings = function() {
+    return settingsBuilder($scope.$storage);
   };
-
-  $scope.settingsBuilder = function() {
-     $scope.listSettings = settingsBuilder($scope.checkModel);
-  };
-
-  $scope.settingsBuilder();
 
   $scope.addAlert = function(text) {
     $scope.alerts.push({msg: text});
@@ -91,7 +55,7 @@ var myApp = angular.module('angulatransmissionApp')
   };
 
   var listTorrents = function() {
-    Session.listTorrents($scope.session, $scope.ipAddress, $scope.listSettings).then(function(data) {
+    Session.listTorrents($scope.session, $scope.ipAddress, $scope.listSettings()).then(function(data) {
       if (angular.isString(data)) {
         $scope.session = data;
       } else {

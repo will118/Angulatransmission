@@ -7,23 +7,9 @@ var myApp = angular.module('angulatransmissionApp')
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 
-  $scope.checkModel = {
-    downloadDir: true,
-    rateUpload: true,
-    eta: false,
-    totalSize: true,
-    status: true,
-    remove: true,
-    uploadedEver: true
-  };
-
   $scope.go = function (path) {
      $location.path(path);
   };
-
-  // $scope.settingsBuilder = function() {
-  //   $scope.listSettings = settingsBuilder($scope.checkModel);
-  // };
 
   var torrentStats = function() {
     Session.torrentStats($scope.session, $scope.ipAddress).then(function(data) {
