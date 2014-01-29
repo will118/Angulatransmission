@@ -74,13 +74,13 @@ var myApp = angular.module('angulatransmissionApp')
 
   $scope.statusFilter = function (num) {
     if (num == 6){
-       return "Seeding";
+       return "<span class='glyphicon glyphicon-cloud-upload'></span>";
     } else if (num == 4){
-       return "Downloading";
+       return "<span class='glyphicon glyphicon-cloud-download'></span>";
     } else if (num == 3){
-       return "Queued";
+       return "<span class='glyphicon glyphicon-time'></span>";
     } else if (num === 0){
-       return "Paused";
+       return "<span class='glyphicon glyphicon-pause'></span>";
     } else {
        return "Unknown";
     };
@@ -129,6 +129,6 @@ var myApp = angular.module('angulatransmissionApp')
     $scope.$apply(function() {
       $scope.refreshList();
     });
-  }, 3337);
+  }, 113337);
 });
 

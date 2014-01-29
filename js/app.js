@@ -4,7 +4,8 @@ angular.module('angulatransmissionApp', [
   'angulatransmissionApp.sessions',
   'ngRoute',
   'ui.bootstrap',
-  'base64'
+  'base64',
+  'ngSanitize'
 ])
   .config(function ($routeProvider) {
     $routeProvider

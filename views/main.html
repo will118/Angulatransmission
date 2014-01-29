@@ -3,14 +3,15 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th ng-if="checkModel.totalSize">Total Size</th>
-      <th>DL Speed</th>
+      <th ng-if="checkModel.totalSize">Size</th>
+      <th style="text-align: center;"> DL</th>
+      <th ng-if="checkModel.rateUpload" style="text-align: center;">UL</th>
       <th>Progress</th>
-      <th ng-if="checkModel.rateUpload">Upload Rate</th>
       <th ng-if="checkModel.eta">ETA</th>
       <th ng-if="checkModel.uploadedEver">Uploaded</th>
       <th ng-if="checkModel.downloadDir">Dir</th>
-      <th ng-if="checkModel.status">Status</th>
+      <th ng-if="checkModel.status"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -18,18 +19,18 @@
     <tr ng-repeat="torrent in torrents">
       <td>
         {{torrent.name}}
-      </td>
-      <td ng-if="checkModel.totalSize">
+             </td>
+             <td ng-if="checkModel.totalSize">
         {{byteCalc(torrent.totalSize)}}
       </td>
-      <td>
+      <td style="text-align: center;">
         {{byteCalc(torrent.rateDownload)}}/s
-     </td>
+        </td>
+        <td ng-if="checkModel.rateUpload" style="text-align: center;">
+        {{byteCalc(torrent.rateUpload)}}
+      </td>
       <td>
         {{percentCalc(torrent.percentDone)}}
-      </td>
-      <td ng-if="checkModel.rateUpload">
-        {{byteCalc(torrent.rateUpload)}}
       </td>
        <td ng-if="checkModel.uploadedEver">
         {{byteCalc(torrent.uploadedEver)}}
@@ -41,14 +42,20 @@
         {{torrent.downloadDir}}
       </td>
       <td ng-if="checkModel.status">
-        {{statusFilter(torrent.status)}}
-        </td>
-        <td ng-if="checkModel.remove">
-          <a ng-click="removeTorrent(torrent.id)">X</a>
+        <div ng-bind-html="statusFilter(torrent.status)"></div>
       </td>
+        <td>
+ <button type="button" ng-click="removeTorrent(torrent.id)" class="btn btn-default btn-xs" style="border-color: white;">
+            <span class="glyphicon glyphicon-trash"></span>
+            </button>
+
+        </td>
     </tr>
   </tbody>
 </table>
-<button type="button" class="btn btn-default" ng-click="refreshList()">Refresh</button>
-
-<button type="button" class="btn btn-warning" ng-click="go('/settings')">Settings</button>
+  <button type="button" ng-click="refreshList()" class="btn btn-default btn-xs" style="border-color: white;">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>
+            <button type="button" ng-click="go('/settings')" class="btn btn-default btn-xs" style="border-color: white;">
+            <span class="glyphicon glyphicon-wrench"></span>
+          </button>

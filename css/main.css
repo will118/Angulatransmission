@@ -1,3 +1,9 @@
+th {
+    white-space: nowrap;
+}
+td {
+    white-space: nowrap;
+}
 .chart {
   background: #eee;
   padding: 3px;
@@ -37,7 +43,7 @@
 }
 
 body {
-  min-width: 800px;
+  min-width: 420px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
