@@ -13,11 +13,7 @@ angular.module('angulatransmissionApp', [
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      }).when('/settings', {
-        templateUrl: 'views/settings.html',
-        controller: 'SettingCtrl'
-      })
-      .otherwise({
+      }).otherwise({
         redirectTo: '/'
       });
   });

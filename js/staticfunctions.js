@@ -11,7 +11,6 @@ var settingsBuilder = function(p) {
         }
       }
     }
-     console.log(presets);
     return presets;
 };
 var byteCalc = function (bytes) {

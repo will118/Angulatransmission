@@ -13,8 +13,9 @@ var myApp = angular.module('angulatransmissionApp')
         uploadedEver: true
   });
 
+  $scope.$storage.ipAddress = devip;
+
   $scope.alerts = [];
-  $scope.ipAddress = devip;
   $scope.selectedIp = undefined;
   $scope.ips = ['192.168.1.80','127.0.0.1'];
 
@@ -32,9 +33,7 @@ var myApp = angular.module('angulatransmissionApp')
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
   };
-  $scope.changeIp = function () {
-    $scope.ipAddress = $scope.selectedIp;
-  };
+
 
   $scope.statusFilter = function (num) {
     if (num == 6){
@@ -51,11 +50,11 @@ var myApp = angular.module('angulatransmissionApp')
   };
 
   $scope.removeTorrent = function(id) {
-    Session.removeTorrent($scope.session, $scope.ipAddress, id);
+    Session.removeTorrent($scope.session, $scope.$storage.ipAddress, id);
   };
 
   var listTorrents = function() {
-    Session.listTorrents($scope.session, $scope.ipAddress, $scope.listSettings()).then(function(data) {
+    Session.listTorrents($scope.session, $scope.$storage.ipAddress, $scope.listSettings()).then(function(data) {
       if (angular.isString(data)) {
         $scope.session = data;
       } else {
@@ -65,7 +64,7 @@ var myApp = angular.module('angulatransmissionApp')
   };
 
   var addTorrent = function(id, file) {
-    Session.addTorrent(id, $scope.ipAddress, file);
+    Session.addTorrent(id, $scope.$storage.ipAddress, file);
   };
 
   $scope.refreshList = function () {
@@ -93,6 +92,6 @@ var myApp = angular.module('angulatransmissionApp')
     $scope.$apply(function() {
       $scope.refreshList();
     });
-  }, 113337);
+  }, 1337);
 });
 

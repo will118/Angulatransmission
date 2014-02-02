@@ -83,6 +83,24 @@ app.factory('Session', function($http, $q, $base64) {
     return deferAdd.promise;
   };
 
+  methods.stopTorrent = function(sessionId, ipAddress, id) {
+    var deferStop = $q.defer();
+    var postData = {'arguments': { 'ids' : id }, 'method': 'torrent-stop'};
+    $http({
+          url: baseUrl(ipAddress),
+          method: "POST",
+          data: postData,
+          headers: {'X-Transmission-Session-Id': sessionId}
+    })
+    .success(function(data) {
+      deferStop.resolve(data);
+    })
+    .error(function(_data_, _status_, headers, _config_) {
+      deferStop.resolve(headers()['x-transmission-session-id']);
+    });
+    return deferStop.promise;
+  };
+
   methods.removeTorrent = function(sessionId, ipAddress, id) {
     var deferRemove = $q.defer();
     var postData = {'arguments': { 'ids' : id, 'delete-local-data' : true }, 'method': 'torrent-remove'};
