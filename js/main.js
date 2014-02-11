@@ -1,7 +1,9 @@
 'use strict';
 
+var devip = '192.168.1.80';
+
 var myApp = angular.module('angulatransmissionApp')
-  .controller('MainCtrl', function ($scope, Session, $location, $base64, $localStorage) {
+  .controller('MainCtrl', function ($scope, Session, $base64, $localStorage) {
 
   $scope.$storage = $localStorage.$default({
         downloadDir: true,
@@ -16,12 +18,6 @@ var myApp = angular.module('angulatransmissionApp')
   $scope.$storage.ipAddress = devip;
 
   $scope.alerts = [];
-  $scope.selectedIp = undefined;
-  $scope.ips = ['192.168.1.80','127.0.0.1'];
-
-  $scope.go = function (path) {
-     $location.path(path);
-  };
 
   $scope.listSettings = function() {
     return settingsBuilder($scope.$storage);
@@ -49,8 +45,32 @@ var myApp = angular.module('angulatransmissionApp')
     };
   };
 
+  $scope.stopStartFilter = function (num) {
+    if (num === 0){
+       return "<span class='glyphicon glyphicon-play'></span>";
+    } else {
+       return "<span class='glyphicon glyphicon-stop'></span>";
+    }
+  };
+
   $scope.removeTorrent = function(id) {
     Session.removeTorrent($scope.session, $scope.$storage.ipAddress, id);
+  };
+
+  var stopTorrent = function(id) {
+    Session.stopTorrent($scope.session, $scope.$storage.ipAddress, id);
+  };
+
+  var restartTorrent = function(id) {
+    Session.restartTorrent($scope.session, $scope.$storage.ipAddress, id);
+  };
+
+  $scope.torrentStopStarter = function(id, status){
+     if (status === 0){
+       restartTorrent(id);
+    } else {
+       stopTorrent(id);
+    }
   };
 
   var listTorrents = function() {

@@ -1,5 +1,3 @@
-var devip = '192.168.1.80';
-
 var settingsBuilder = function(p) {
     var presets = [ 'id', 'name', 'rateDownload', 'percentDone'];
     for (var key in p) {
@@ -34,5 +32,3 @@ var abler = function (bool) {
     return undefined
   }
 };
-
-

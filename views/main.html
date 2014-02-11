@@ -10,7 +10,8 @@
       <th ng-if="$storage.eta">ETA</th>
       <th ng-if="$storage.uploadedEver">Uploaded</th>
       <th ng-if="$storage.downloadDir">Dir</th>
-      <th ng-if="$storage.status"></th>
+      <th ng-if="$storage.status">Status</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -19,8 +20,8 @@
     <tr ng-repeat="torrent in torrents">
       <td>
         {{torrent.name}}
-             </td>
-             <td ng-if="$storage.totalSize">
+       </td>
+       <td ng-if="$storage.totalSize">
         {{byteCalc(torrent.totalSize)}}
       </td>
       <td style="text-align: center;">
@@ -45,10 +46,14 @@
         <div ng-bind-html="statusFilter(torrent.status)"></div>
       </td>
         <td>
- <button type="button" ng-click="removeTorrent(torrent.id)" class="btn btn-default btn-xs" style="border-color: white;">
+          <button type="button" ng-click="torrentStopStarter(torrent.id, torrent.status)" class="btn btn-default btn-xs" style="border-color: white;">
+              <div ng-bind-html="stopStartFilter(torrent.status)"></div>
+          </button>
+        </td>
+        <td>
+          <button type="button" ng-click="removeTorrent(torrent.id)" class="btn btn-default btn-xs" style="border-color: white;">
             <span class="glyphicon glyphicon-trash"></span>
-            </button>
-
+          </button>
         </td>
     </tr>
   </tbody>

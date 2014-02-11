@@ -1,6 +1,6 @@
 {
   "name": "angulatransmission",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "default_locale": "en",
   "manifest_version": 2,
   "background": {"persistent": false, "scripts": ["js/angular.js", "js/angular-base64.js", "js/session.js", "js/backgroundapp.js", "js/backgroundmain.js"]},
