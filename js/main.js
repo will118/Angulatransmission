@@ -112,6 +112,6 @@ var myApp = angular.module('angulatransmissionApp')
     $scope.$apply(function() {
       $scope.refreshList();
     });
-  }, 1337);
+  }, 420);
 });
 

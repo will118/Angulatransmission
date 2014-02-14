@@ -7,5 +7,5 @@ The popout consists of one page ~ the torrent list.
 
 The torrent list has buttons to delete the torrent and data, stop torrent.. but aside from that it's not supposed to be a fully fledged client.
 
-![Context Menu](screens/contextmenu.png "Context Menu")
-![Popout](screens/popout.png "Popout")
+![Flow](screens/torrent.gif "App flow")
+

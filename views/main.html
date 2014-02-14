@@ -43,7 +43,7 @@
         {{torrent.downloadDir}}
       </td>
       <td ng-if="$storage.status">
-        <div ng-bind-html="statusFilter(torrent.status)"></div>
+        <div ng-bind-html="statusFilter(torrent.status)" style="padding-left: 13px;"></div>
       </td>
         <td>
           <button type="button" ng-click="torrentStopStarter(torrent.id, torrent.status)" class="btn btn-default btn-xs" style="border-color: white;">
